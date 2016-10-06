@@ -7,7 +7,7 @@ The data returned will be different at different times.
 Hence we just validate if we are getting a OK response.
 """
 
-apiKey = "Cw7BldtcUbgDLWM1hrTGneo8xM0rz4bW"
+apiKey = "API_KEY"
 
 class TestActivities(unittest.TestCase):
     """
