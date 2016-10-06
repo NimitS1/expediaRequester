@@ -40,12 +40,13 @@ class ExpediaRequester(object):
     Start hotels API
     """
 
-    def hotels(self, cityName, checkinDate, checkoutDate):
+    def hotels(self, cityName, checkinDate, checkoutDate, room1):
         url = "http://terminal2.expedia.com/x/mhotels/search?city="
         url += cityName
         url += "&checkInDate=" + checkinDate 
         url += "&checkOutDate=" + checkoutDate 
-        url += "&room1=2&apikey=" + self.apiKey
+        url += "&room1=" + str(room1)
+        url += "&apikey=" + self.apiKey
         return self.get(url)
   
     def hotel_reviews(self, hotelId, summary, sortBy, start, items, categoryFilter):
@@ -73,7 +74,7 @@ class ExpediaRequester(object):
     def cars_search(self, pickupDate, dropoffDate, pickupLocation, dropoffLocation, sort, limit, suppliers, classes):
         url = "http://terminal2.expedia.com:80/x/cars/search?"
         if pickupDate is not None:
-            url += "&pickupdate=" + pickupDate
+            url += "pickupdate=" + pickupDate
         if dropoffDate is not None:
             url += "&dropoffdate=" + dropoffDate
         if pickupLocation is not None:
