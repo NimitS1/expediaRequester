@@ -1,4 +1,5 @@
 import unittest
+import datetime
 import expediaRequester
 
 """
@@ -16,7 +17,11 @@ class TestActivities(unittest.TestCase):
         self.client = expediaRequester.ExpediaRequester(apiKey)
     
     def testActivities(self):
-        code, json = self.client.activities("London", None, None)
+        tomorrow = datetime.datetime.today() + datetime.timedelta(days=1)
+        nextDay = tomorrow + datetime.timedelta(days=1)
+        code, json = self.client.activities("London",
+                                            datetime.datetime.strftime(tomorrow, "%Y-%m-%d"),
+                                            datetime.datetime.strftime(nextDay, "%Y-%m-%d"))
         self.assertEqual(code, 200)
 
 

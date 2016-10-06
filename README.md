@@ -1,2 +1,2 @@
-# expediaRequester
-Python wrapper for Expedia API
+# expediaRequestor
+A python wrapper for Expedia APIs

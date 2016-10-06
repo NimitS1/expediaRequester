@@ -10,4 +10,4 @@ __author__ = 'Nimit Shah'
 __license__ = 'GPLv3'
 __copyright__ = 'Copyright 2016 Nimit Shah'
 
-from .requestor import ExpediaRequestor
+from .requester import ExpediaRequester
