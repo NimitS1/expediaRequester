@@ -52,6 +52,17 @@ class testCars(TestActivities):
         self.assertEqual(code, 200)
 
 
+class testFlightsSearch(TestActivities):
+    """
+    Unit test flights search API
+    """
+    def test_flights_search(self):
+        tomorrow = datetime.datetime.today() + datetime.timedelta(days=1)
+        nextDay = tomorrow + datetime.timedelta(days=1)
+        code, json = self.client.flights_search(datetime.datetime.strftime(tomorrow, "%Y-%m-%d")                                           , datetime.datetime.strftime(nextDay, "%Y-%m-%d"), "SFO", "LAX", True, 2, "12", False, False, None, 15)
+        self.assertEqual(code, 200)
+
+
 if __name__ == '__main__':
     unittest.main()
     

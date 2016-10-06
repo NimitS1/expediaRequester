@@ -162,15 +162,15 @@ class ExpediaRequester(object):
         if arrivalAirport is not None:
             url += "&arrivalAirport=" + arrivalAirport
         if prettyPrint is not None:
-            url += "&prettyPrint=" + str(prettyPrint).to_lower()
+            url += "&prettyPrint=" + str(prettyPrint).lower()
         if numberOfAdultTravelers is not None:
             url += "&numberOfAdultTravelers" + str(numberOfAdultTravelers)
         if childTravelerAge is not None:
             url += "&childTravelerAge" + childTravelerAge
         if infantSeatingInLap is not None:
-            url += "&infantSeatingInLap=" + str(infantSeatingInLap).to_lower()
+            url += "&infantSeatingInLap=" + str(infantSeatingInLap).lower()
         if lccAndMerchantFareCheckoutAllowed is not None:
-            url += "&lccAndMerchantFareCheckoutAllowed=" + str(lccAndMerchantFareCheckoutAllowed).to_lower()
+            url += "&lccAndMerchantFareCheckoutAllowed=" + str(lccAndMerchantFareCheckoutAllowed).lower()
         if correlationId is not None:
             url += "&correlationId=" + correlationId
         if maxOfferCount is not None:
