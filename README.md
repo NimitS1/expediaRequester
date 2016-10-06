@@ -15,7 +15,7 @@ The goal is to write a developer friendly client that can used to interact with 
 | Cars                       |   [X]       |   [X]           |
 | Cruise                     |   [X]       |   [ ]           |
 | Flight Search              |   [X]       |   [X]           |
-| Flights prices and trends  |   [X]       |   [ ]           |
+| Flights prices and trends  |   [X]       |   [X]           |
 | Geography                  |   [ ]       |   [ ]           |
 | Hotel Reviews              |   [X]       |   [X]           |
 | Hotel Search Offers        |   [ ]       |   [ ]           |

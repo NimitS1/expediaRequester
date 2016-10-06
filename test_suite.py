@@ -7,7 +7,7 @@ The data returned will be different at different times.
 Hence we just validate if we are getting a OK response.
 """
 
-apiKey = "API_KEY"
+apiKey = ""
 
 class TestActivities(unittest.TestCase):
     """
@@ -62,6 +62,15 @@ class testFlightsSearch(TestActivities):
         code, json = self.client.flights_search(datetime.datetime.strftime(tomorrow, "%Y-%m-%d")                                           , datetime.datetime.strftime(nextDay, "%Y-%m-%d"), "SFO", "LAX", True, 2, "12", False, False, None, 15)
         self.assertEqual(code, 200)
 
+    def test_flights_price_range_search(self):
+        tomorrow = datetime.datetime.today() + datetime.timedelta(days=1)
+        code, json = self.client.flights_price_range_search("SFO","LAX",datetime.datetime.strftime(tomorrow, "%Y-%m-%d"))
+        self.assertEqual(code, 200)
+
+    def test_flights_trends(self):
+        tomorrow = datetime.datetime.today() + datetime.timedelta(days=1)
+        code, json = self.client.flights_trends_and_predictions("SFO","LAX",datetime.datetime.strftime(tomorrow, "%Y-%m-%d"))
+        self.assertEqual(code, 200)
 
 if __name__ == '__main__':
     unittest.main()
