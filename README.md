@@ -19,8 +19,10 @@ The goal is to write a developer friendly client that can used to interact with 
 | Geography                  |   [ ]       |   [ ]           |
 | Hotel Reviews              |   [X]       |   [X]           |
 | Hotel Search Offers        |   [ ]       |   [ ]           |
-| Package Search             |   [ ]       |   [ ]           |
+| Package Search             |   [X]       |   [X]           |
 | Suggestions and Resolutions|   [ ]       |   [ ]           |
 | Things To Do!              |   [ ]       |   [ ]           |
 
 The cruise APIs by Expedia are currently down and cannot be tested till they are back up
+The package search API seems to be buggy so the test for it's wrapper is commented
+

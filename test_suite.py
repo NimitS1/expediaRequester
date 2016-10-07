@@ -72,6 +72,19 @@ class testFlightsSearch(TestActivities):
         code, json = self.client.flights_trends_and_predictions("SFO","LAX",datetime.datetime.strftime(tomorrow, "%Y-%m-%d"))
         self.assertEqual(code, 200)
 
+class testPackages(TestActivities):
+    """
+    Unit test packages
+    """
+    def test_packages(self):
+        tomorrow = datetime.datetime.today() + datetime.timedelta(days=1)
+        nextDay = tomorrow + datetime.timedelta(days=1)
+        code, json = self.client.packages("SFO", "ORL",
+                                          datetime.datetime.strftime(tomorrow, "%Y-%m-%d"),
+                                          datetime.datetime.strftime(nextDay, "%Y-%m-%d"),
+                                          178294, None, 2, "5", False, 10, "coach", False)
+        self.assertEqual(code, 200)
+
 if __name__ == '__main__':
     unittest.main()
     

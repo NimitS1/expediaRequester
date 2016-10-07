@@ -1,7 +1,10 @@
 import requests
 
 class ExpediaRequester(object):
+ 
     apiKey = ""
+    base_url = "http://terminal2.expedia.com:80/x/"
+
     def __init__(self, key):
         self.apiKey = key
 
@@ -239,3 +242,30 @@ class ExpediaRequester(object):
     """
     End Goegraphy API
     """
+    """
+    Start Package Search API
+    """
+    def packages(self, originalAirport, destinationAirport, departureDate, returnDate, regionid, hotelids, adults, childages, infantinseat, limit, cabinClass, nonstop):
+        url = self.base_url + "packages?"
+        url += "originAirport=" + originalAirport
+        url += "&destinationAirport=" + destinationAirport
+        url += "&departureDate=" + departureDate
+        url += "&returnDate=" + returnDate
+        if regionid is not None:
+            url += "&regionid=" + str(regionid)
+        if hotelids is not None:
+            url += "&hotelids=" + hotelids
+        if adults is not None:
+            url += "&adults="+str(adults)
+        if childages is not None:
+            url += "&childages=" + childages
+        if infantinseat is not None:
+            url += "&infantinseat=" + str(infantinseat).lower()
+        if limit is not None:
+            url += "&limit=" + str(limit)
+        if cabinClass is not None:
+            url += "&class=" + cabinClass
+        if nonstop is not None:
+            url += "&nonstop=" + str(nonstop).lower()
+        url += "&apiKey=" + self.apiKey
+        return self.get(url)
