@@ -20,9 +20,9 @@ The goal is to write a developer friendly client that can used to interact with 
 | Hotel Reviews              |   [X]       |   [X]           |
 | Hotel Search Offers        |   [ ]       |   [ ]           |
 | Package Search             |   [X]       |   [X]           |
-| Suggestions and Resolutions|   [ ]       |   [ ]           |
+| Suggestions and Resolutions|   [X]       |   [X]           |
 | Things To Do!              |   [ ]       |   [ ]           |
 
 The cruise APIs by Expedia are currently down and cannot be tested till they are back up.  
 The package search API seems to be buggy so the test for it's wrapper is commented.  
-
+The search resolutions API seems to look for particular headers which I am not able deduce.  

@@ -269,3 +269,38 @@ class ExpediaRequester(object):
             url += "&nonstop=" + str(nonstop).lower()
         url += "&apiKey=" + self.apiKey
         return self.get(url)
+    """
+    End Package Search API
+    """
+    """
+    Start suggestions and resolutons API
+    """
+
+    def suggestions(self, api, query, maxresults):
+        header = {'Authorization' : self.apiKey }
+
+        url = "http://terminal2.expedia.com/x/suggestions/" + api +"?"
+        url += "query=" + query
+        if maxresults is not None:
+            url += "&maxresults=" + str(maxresults)
+        url += "&apiKey=" + self.apiKey
+        return self.get(url)
+
+    def suggest_cars(self, query, maxResults):
+        return self.suggestions("cars", query, maxResults)
+
+    def suggest_flights(self, query, maxresults):
+        return self.suggestions("flights", query, maxresults)
+
+    def suggest_hotels(self, query, maxresults):
+        return self.suggestions("hotels", query, maxresults)
+
+    def suggest_packages(self, query, maxresults):
+        return self.suggestions("packages", query, maxresults)
+
+    def suggest_regions(self, query):
+        return self.suggestions("regions", query, None)
+
+    """
+    End suggestions and resolutions API
+    """
