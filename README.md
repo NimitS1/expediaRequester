@@ -4,6 +4,7 @@ The goal is to write a developer friendly client that can used to interact with 
 
 ###Current to-do
 - [X] Create a setup.py file
+- [ ] Make code completely Pythony [lint, refactor Java style code]
 - [ ] Complete the API implementation  
 - [ ] Populate test cases  
 - [ ] Integrate with travis CI  
@@ -26,3 +27,7 @@ The goal is to write a developer friendly client that can used to interact with 
 The cruise APIs by Expedia are currently down and cannot be tested till they are back up.  
 The package search API seems to be buggy so the test for it's wrapper is commented.  
 The search resolutions API seems to look for particular headers which I am not able deduce.  
+
+
+###Note to testers:
+Remember that you have to add your own API key for testing
