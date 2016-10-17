@@ -58,7 +58,7 @@ class ExpediaRequester(object):
     def hotel_reviews(self, hotelId, summary, sortBy, start, items, categoryFilter):
         payload = {}
         url = "http://terminal2.expedia.com:80/x/reviews/hotels"
-        payload['hotelId'] = hotelId
+        payload['hotelId'] = str(hotelId)
         if summary is not None:
             payload['summary'] = str(summary)
         if sortBy is not None:
@@ -119,7 +119,7 @@ class ExpediaRequester(object):
         if departureLocations is not None:
             payload['ships'] = departureLocations
         if earliestDepartureDates is not None:
-            payload['earliestDeptDates'] = earliestDepartureDates
+            payload['earliestDeptDate'] = earliestDepartureDates
         if latestDepartureDate is not None:
             payload['latestDeptDate'] = latestDepartureDate
         if minLength is not None:
