@@ -77,10 +77,10 @@ class ExpediaRequester(object):
     def cars_search(self, pickupDate = None, dropoffDate = None, pickupLocation = None, dropoffLocation = None, sort = None, limit = None, suppliers = None, classes = None):
         payload = {}
         url = "http://terminal2.expedia.com:80/x/cars/search"
-        payload['pickupdate'] = pickupdate
+        payload['pickupdate'] = pickupDate
         payload['dropoffdate'] = dropoffDate
-        payload['pickuplocation'] = pickuplocation
-        payload['dropofflocation'] = dropofflocation
+        payload['pickuplocation'] = pickupLocation
+        payload['dropofflocation'] = dropoffLocation
         payload['sort'] = sort
         payload['limit'] = str(limit)
         payload['suppliers'] = suppliers
