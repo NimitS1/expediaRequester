@@ -6,35 +6,37 @@ class ExpediaRequester(object):
     base_url = "http://terminal2.expedia.com:80/x/"
 
     def __init__(self, key):
-        self.apiKey = key
+        self.apikey = key
 
-    def get(self, URL):
-        response = requests.get(URL)
-        return response.status_code, response.text
+    def get(self, URL, parameter = None):
+        url_params = {}
+        for key, value in parameter.items():
+            if value is not None:
+                url_params[key] = value
+        response = requests.get(URL, params = url_params)
+        return response.status_code, response.text    
 
     """
     Start activities API
     """
 
-    def activities(self, cityName, startDate, endDate):
-        url = "http://terminal2.expedia.com/x/activities/search?location="
-        url +=  cityName 
-        if startDate is not None:
-            url += "&startDate=" + startDate
-        if endDate is not None:
-            url += "&endDate=" + endDate
-        url += "&apikey=" + self.apiKey
-        return self.get(url)
+    def activities(self, cityName = None, startDate = None, endDate = None):
+        payload = {}
+        url = "http://terminal2.expedia.com/x/activities/search"
+        payload['location'] = cityName
+        payload['startDate'] = startDate
+        payload['endDate'] = endDate
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
   
-    def activity_details(self, activityId, startDate, endDate):
-        url = "http://terminal2.expedia.com:80/x/activities/details?activityId="
-        url += str(activityId)
-        if startDate is not None:
-            url += "&startDate=" + startDate
-        if endDate is not None:
-            url += "&endDate=" + endDate
-        url += "&apikey=" + self.apiKey
-        return self.get(url)
+    def activity_details(self, activityId = None, startDate = None, endDate = None):
+        payload = {}
+        url = "http://terminal2.expedia.com:80/x/activities/details"
+        payload['activityId'] = str(activityId)
+        payload['startDate'] = startDate
+        payload['endDate'] = endDate
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
 
     """
     End activities API
@@ -43,29 +45,27 @@ class ExpediaRequester(object):
     Start hotels API
     """
 
-    def hotels(self, cityName, checkinDate, checkoutDate, room1):
-        url = "http://terminal2.expedia.com/x/mhotels/search?city="
-        url += cityName
-        url += "&checkInDate=" + checkinDate 
-        url += "&checkOutDate=" + checkoutDate 
-        url += "&room1=" + str(room1)
-        url += "&apikey=" + self.apiKey
-        return self.get(url)
+    def hotels(self, cityName = None, checkinDate = None, checkoutDate = None, room1 = None):
+        payload = {}
+        url = "http://terminal2.expedia.com/x/mhotels/search"
+        payload['city'] = cityName
+        payload['checkinDate'] = checkinDate
+        payload['checkoutDate'] = checkoutDate
+        payload['room1'] = str(room1)
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
   
-    def hotel_reviews(self, hotelId, summary, sortBy, start, items, categoryFilter):
-        url = "http://terminal2.expedia.com:80/x/reviews/hotels?hotelId=" + str(hotelId)
-        if summary is not None:
-            url += "&summary=" + str(summary)
-        if sortBy is not None:
-            url += "&sortBy=" + sortBy
-        if start is not None:
-            url += "&start=" + str(start)
-        if items is not None:
-            url += "&items=" + str(items)
-        if categoryFilter is not None:
-            url += "&categoryFilter=" + categoryFilter
-        url = url + "&apikey=" + self.apiKey
-        return self.get(url)
+    def hotel_reviews(self, hotelId, summary = None, sortBy = None, start = None, items = None, categoryFilter = None):
+        payload = {}
+        url = "http://terminal2.expedia.com:80/x/reviews/hotels"
+        payload['hotelId'] = str(hotelId)
+        payload['summary'] = str(summary)
+        payload['sortBy'] = sortBy
+        payload['start'] = str(start)
+        payload['items'] = str(items)
+        payload['categoryFilter'] = categoryFilter
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
 
     """
     End hotels API
@@ -74,26 +74,19 @@ class ExpediaRequester(object):
     Start cars API
     """
 
-    def cars_search(self, pickupDate, dropoffDate, pickupLocation, dropoffLocation, sort, limit, suppliers, classes):
-        url = "http://terminal2.expedia.com:80/x/cars/search?"
-        if pickupDate is not None:
-            url += "pickupdate=" + pickupDate
-        if dropoffDate is not None:
-            url += "&dropoffdate=" + dropoffDate
-        if pickupLocation is not None:
-            url += "&pickuplocation=" + pickupLocation
-        if dropoffLocation is not None:
-            url += "&dropofflocation=" + dropoffLocation
-        if sort is not None:
-            url += "&sort=" + sort
-        if limit is not None:
-            url += "&limit=" + str(limit)
-        if suppliers is not None:
-            url += "&suppliers=" + suppliers
-        if classes is not None:
-            url += "&classes=" + classes
-        url = url + "&apikey=" + self.apiKey
-        return self.get(url)
+    def cars_search(self, pickupDate = None, dropoffDate = None, pickupLocation = None, dropoffLocation = None, sort = None, limit = None, suppliers = None, classes = None):
+        payload = {}
+        url = "http://terminal2.expedia.com:80/x/cars/search"
+        payload['pickupdate'] = pickupDate
+        payload['dropoffdate'] = dropoffDate
+        payload['pickuplocation'] = pickupLocation
+        payload['dropofflocation'] = dropoffLocation
+        payload['sort'] = sort
+        payload['limit'] = str(limit)
+        payload['suppliers'] = suppliers
+        payload['classes'] = classes
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
 
     """
     End cars API
@@ -102,52 +95,40 @@ class ExpediaRequester(object):
     Start cruise API
     """
 
-    def cruise_search_sailings(self, cruiseLines, ships, destinations, departureLocations, earliestDepartureDates, latestDepartureDate, minLength, maxLength, minPrice, maxPrice, sortBy, sortOrder, limit, offset):
-        url = "http://terminal2.expedia.com:80/x/cruise/search/sailing/search?cruiseLines=" +cruiseLines
-        if ships is not None:
-            url += "&ships=" + ships
-        if destinations is not None:
-            url += "&destinations=" + destinations
-        if departureLocations is not None:
-            url += "&ships=" + departureLocations
-        if earliestDepartureDates is not None:
-            url += "&earliestDeptDate=" + earliestDepartureDates
-        if latestDepartureDate is not None:
-            url += "&latestDeptDate=" + latestDepartureDate
-        if minLength is not None:
-            url += "&minLength=" + str(minLength)
-        if maxLength is not None:
-            url += "&maxLength=" + str(maxLength)
-        if minPrice is not None:
-            url += "&minPrice=" + str(minPrice)
-        if maxPrice is not None:
-            url += "&maxPrice=" + str(maxPrice)
-        if sortBy is not None:
-            url += "&sortBy=" + sortBy
-        if sortOrder is not None:
-            url += "&sortOrder=" + sortOrder
-        if limit is not None:
-            url += "&limit=" + str(limit)
-        if offset is not None:
-            url += "&offset=" + str(offset)
-        url +=  "&apikey=" + self.apiKey
-        return self.get(url)
+    def cruise_search_sailings(self, cruiseLines = None, ships = None, destinations = None, departureLocations = None, earliestDepartureDates = None, latestDepartureDate = None, minLength = None, maxLength = None, minPrice = None, maxPrice = None, sortBy = None, sortOrder = None, limit = None, offset = None):
+        payload = {}
+        url = "http://terminal2.expedia.com:80/x/cruise/search/sailing/search"
+        payload['cruiseLines'] = cruiseLines
+        payload['ships'] = ships
+        payload['destinations'] = destinations
+        payload['ships'] = departureLocations
+        payload['earliestDeptDate'] = earliestDepartureDates
+        payload['latestDeptDate'] = latestDepartureDate
+        payload['minLength'] = str(minLength)
+        payload['maxLength'] = str(maxLength)
+        payload['minPrice'] = str(minPrice)
+        payload['maxPrice'] = str(maxPrice)
+        payload['sortBy'] = sortBy
+        payload['sortOrder'] = sortOrder
+        payload['limit'] = str(limit)
+        payload['offset'] = str(offset)
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
 
-    def cruise_offer_availability(self, offerToken, adultPassengerCount, childPassengerCount, childPassengerAges):
-        url = "http://terminal2.expedia.com:80/x/cruise/offer/availability?offerToken=" + offerToken
-        if adultPassengerCount is not None:
-            url += "&adultPassengerCount=" + str(adultPassengerCount)
-        if childPassengerCount is not None:
-            url += "&childPassengerCount=" + str(childPassengerCount)
-        if childPassengerAges is not None:
-            url += "&childPassengerAges=" + childPassengerAges
-        url +=  "&apikey=" + self.apiKey
-        return self.get(url)
+    def cruise_offer_availability(self, offerToken = None, adultPassengerCount = None, childPassengerCount = None, childPassengerAges = None):
+        payload = {}
+        url = "http://terminal2.expedia.com:80/x/cruise/offer/availability"
+        payload['offerToken'] = offerToken
+        payload['adultPassengerCount'] = str(adultPassengerCount)
+        payload['childPassengerCount'] = str(childPassengerCount)
+        payload['childPassengerAges'] = childPassengerAges
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
 
     def cruise_search_sailings_filters(self):
         url = "http://terminal2.expedia.com:80/x/cruise/search/sailings/filters"
-        url +=  "&apikey=" + self.apiKey
-        return self.get(url)
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
 
     """
     End cruise API
@@ -156,46 +137,40 @@ class ExpediaRequester(object):
     Start flights API
     """
 
-    def flights_search(self, departureDate, returnDate, departureAirport, arrivalAirport, prettyPrint, numberOfAdultTravelers, childTravelerAge, infantSeatingInLap, lccAndMerchantFareCheckoutAllowed, correlationId, maxOfferCount):
-        url = "http://terminal2.expedia.com:80/x/mflights/search?departureDate=" + departureDate
-        if returnDate is not None:
-            url += "&returnDate=" + returnDate
-        if departureAirport is not None:
-            url += "&departureAirport=" + departureAirport
-        if arrivalAirport is not None:
-            url += "&arrivalAirport=" + arrivalAirport
-        if prettyPrint is not None:
-            url += "&prettyPrint=" + str(prettyPrint).lower()
-        if numberOfAdultTravelers is not None:
-            url += "&numberOfAdultTravelers" + str(numberOfAdultTravelers)
-        if childTravelerAge is not None:
-            url += "&childTravelerAge" + childTravelerAge
-        if infantSeatingInLap is not None:
-            url += "&infantSeatingInLap=" + str(infantSeatingInLap).lower()
-        if lccAndMerchantFareCheckoutAllowed is not None:
-            url += "&lccAndMerchantFareCheckoutAllowed=" + str(lccAndMerchantFareCheckoutAllowed).lower()
-        if correlationId is not None:
-            url += "&correlationId=" + correlationId
-        if maxOfferCount is not None:
-            url += "&maxOfferCount=" + str(maxOfferCount)
-        url += "&apikey=" + self.apiKey
-        return self.get(url)
+    def flights_search(self, departureDate = None, returnDate = None, departureAirport = None, arrivalAirport = None, prettyPrint = None, numberOfAdultTravelers = None, childTravelerAge = None, infantSeatingInLap = None, lccAndMerchantFareCheckoutAllowed = None, correlationId = None, maxOfferCount = None):
+        payload = {}
+        url = "http://terminal2.expedia.com:80/x/mflights/search"
+        payload['departureDate'] = departureDate
+        payload['returnDate'] = returnDate
+        payload['departureAirport'] = departureAirport
+        payload['arrivalAirport'] = arrivalAirport
+        payload['prettyPrint'] = str(prettyPrint).lower()
+        payload['numberOfAdultTravelers'] = str(numberOfAdultTravelers)
+        payload['childTravelerAge'] = childTravelerAge
+        payload['infantSeatingInLap'] = str(infantSeatingInLap).lower()
+        payload['lccAndMerchantFareCheckoutAllowed'] = str(lccAndMerchantFareCheckoutAllowed).lower()
+        payload['correlationId'] = correlationId
+        payload['maxOfferCount'] = str(maxOfferCount)
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
 
-    def flights_price_range_search(self, fromAirport, toAirport, departDate):
+    def flights_price_range_search(self, fromAirport = None, toAirport = None, departDate = None):
+        payload = {}
         url = "http://terminal2.expedia.com:80/x/flights/search/1/"
         url += fromAirport
         url += "/" + toAirport
         url += "/" + departDate
-        url += "?apikey=" + self.apiKey
-        return self.get(url)
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
 
-    def flights_trends_and_predictions(self, fromAirport, toAirport, departDate):
+    def flights_trends_and_predictions(self, fromAirport = None, toAirport = None, departDate = None):
+        payload = {}
         url = "http://terminal2.expedia.com:80/x/flights/v3/search/1/"
         url += fromAirport
         url += "/" + toAirport
         url += "/" + departDate
-        url += "?apikey=" + self.apiKey
-        return self.get(url)
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
     
     """
     End flights API
@@ -203,41 +178,29 @@ class ExpediaRequester(object):
     """
     Start Geography API
     """
-    def get_prefix(self, firstValue):
-        if firstValue:
-            return "?"
-        return "&"
-
-    def geography_features(self, gaiaId, verbose, lcid):
-        firstValue = True
+    
+    def geography_features(self, gaiaId = None, verbose = None, lcid = None):
+        payload = {}
         url = "http://terminal2.expedia.com:80/x/geo/features/"
-        url += gaiaId 
-        if verbose is not None:
-            url += self.getPrefix(firstValue) + "verbose=" + verbose
-            firstValue = False
-        if lcId is not None:
-            url += self.getPrefix(firstValue) + "lcid=" + lcid
-            firstValue = False
-        url += self.getPrefix(firstValue) + "apiKey=" + self.apiKey
-        return self.get(url)
+        url += gaiaId
+        payload['verbose'] = verbose
+        payload['lcid'] = lcid
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
 
-    def geography_features_by_latlong(self, within, lat, lng, atLeast, expandby, type_val, verbose, lcid):
+    def geography_features_by_latlong(self, within = None, lat = None, lng = None, atLeast = None, expandby = None, type_val = None, verbose = None, lcid = None):
+        payload = {}
         url = "http://terminal2.expedia.com:80/x/geo/features?"
         url += within
-        url += "&lat=" + lat
-        url += "&lng=" + lng
-        if atLeast is not None:
-            url += "&atLeast=" + str(atLeast)
-        if expandBy is not None:
-            url += "&expandBy=" + expandBy
-        if type_val is not None:
-            url += "&type=" + type_val
-        if verbose is not None:
-            url += "&verbose=" + verbose
-        if lcid is not None:
-            url += "&lcid=" + lcid
-        url += "&apiKey=" + self.apiKey
-        return self.get(url)
+        payload['lat'] = lat
+        payload['lng'] = lng
+        payload['atLeast'] = str(atLeast)
+        payload['expandBy'] = expandBy
+        payload['type'] = type_val
+        payload['verbose'] = verbose
+        payload['lcid'] = lcid
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
    
     """
     End Goegraphy API
@@ -245,30 +208,24 @@ class ExpediaRequester(object):
     """
     Start Package Search API
     """
-    def packages(self, originalAirport, destinationAirport, departureDate, returnDate, regionid, hotelids, adults, childages, infantinseat, limit, cabinClass, nonstop):
-        url = self.base_url + "packages?"
-        url += "originAirport=" + originalAirport
-        url += "&destinationAirport=" + destinationAirport
-        url += "&departureDate=" + departureDate
-        url += "&returnDate=" + returnDate
-        if regionid is not None:
-            url += "&regionid=" + str(regionid)
-        if hotelids is not None:
-            url += "&hotelids=" + hotelids
-        if adults is not None:
-            url += "&adults="+str(adults)
-        if childages is not None:
-            url += "&childages=" + childages
-        if infantinseat is not None:
-            url += "&infantinseat=" + str(infantinseat).lower()
-        if limit is not None:
-            url += "&limit=" + str(limit)
-        if cabinClass is not None:
-            url += "&class=" + cabinClass
-        if nonstop is not None:
-            url += "&nonstop=" + str(nonstop).lower()
-        url += "&apiKey=" + self.apiKey
-        return self.get(url)
+    def packages(self, originalAirport = None, destinationAirport = None, departureDate = None, returnDate = None, regionid = None, hotelids = None, adults = None, childages = None, infantinseat = None, limit = None, cabinClass = None, nonstop = None):
+        payload = {}
+        url = self.base_url + "packages"
+        payload['originAirport'] = originAirport
+        payload['destinationAirport'] = destinationAirport
+        payload['departureDate'] = departureDate
+        payload['returnDate'] = returnDate
+        payload['regionid'] = str(regionid)
+        payload['hotelids'] = hotelids
+        payload['adults'] = str(adults)
+        payload['childages'] = childages
+        payload['infantinseat'] = str(infantinseat).lower()
+        payload['limit'] = str(limit)
+        payload['class'] = cabinClass
+        payload['nonstop'] = str(nonstop).lower()
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
+
     """
     End Package Search API
     """
@@ -276,15 +233,15 @@ class ExpediaRequester(object):
     Start suggestions and resolutons API
     """
 
-    def suggestions(self, api, query, maxresults):
+    def suggestions(self, api = None, query = None, maxresults = None):
         header = {'Authorization' : self.apiKey }
 
-        url = "http://terminal2.expedia.com/x/suggestions/" + api +"?"
-        url += "query=" + query
-        if maxresults is not None:
-            url += "&maxresults=" + str(maxresults)
-        url += "&apiKey=" + self.apiKey
-        return self.get(url)
+        payload = {}
+        url = "http://terminal2.expedia.com/x/suggestions/" + api
+        payload['query'] = query
+        payload['maxresults'] = str(maxresults)
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
 
     def suggest_cars(self, query, maxResults):
         return self.suggestions("cars", query, maxResults)
