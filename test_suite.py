@@ -9,12 +9,17 @@ Hence we just validate if we are getting a OK response.
 
 apiKey = ""
 
-class TestActivities(unittest.TestCase):
+class TestCases(unittest.TestCase):
     """
-    Unit test activities API
+    Base class for test cases
     """
     def setUp(self):
         self.client = expediaRequester.ExpediaRequester(apiKey)
+
+class TestActivities(TestCases):
+    """
+    Unit test activities API
+    """
     
     def test_activities(self):
         tomorrow = datetime.datetime.today() + datetime.timedelta(days=1)
@@ -24,7 +29,7 @@ class TestActivities(unittest.TestCase):
                                             datetime.datetime.strftime(nextDay, "%Y-%m-%d"))
         self.assertEqual(code, 200)
 
-class testHotels(TestActivities):
+class testHotels(TestCases):
     """
     Unit test hotesls API
     """
@@ -40,7 +45,7 @@ class testHotels(TestActivities):
         code, json = self.client.hotel_reviews( 234, True, "DATEASC", 0, 10, "Everyone")
         self.assertEqual(code, 200)
 
-class testCars(TestActivities):
+class testCars(TestCases):
     """
     Unit test cars API
     """
@@ -52,7 +57,7 @@ class testCars(TestActivities):
         self.assertEqual(code, 200)
 
 
-class testFlightsSearch(TestActivities):
+class testFlightsSearch(TestCases):
     """
     Unit test flights search API
     """
@@ -72,7 +77,7 @@ class testFlightsSearch(TestActivities):
         code, json = self.client.flights_trends_and_predictions("SFO","LAX",datetime.datetime.strftime(tomorrow, "%Y-%m-%d"))
         self.assertEqual(code, 200)
 
-class testPackages(TestActivities):
+class testPackages(TestCases):
     """
     Unit test packages
     """
