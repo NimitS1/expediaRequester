@@ -22,7 +22,6 @@ class ExpediaRequester(object):
     def activities(self, cityName = None, startDate = None, endDate = None):
         payload = {}
         url = self.base_url + "activities/search"
-        #url = "http://terminal2.expedia.com/x/activities/search"
         payload['location'] = cityName
         payload['startDate'] = startDate
         payload['endDate'] = endDate
@@ -318,7 +317,6 @@ class ExpediaRequester(object):
         payload['room'] = room
         payload['apikey'] = self.apikey
         return self.get(url, parameter = payload)
-        
 
     def hotel_info(self, hotelid = None):
         payload = {}

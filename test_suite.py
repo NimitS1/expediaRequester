@@ -109,7 +109,7 @@ class testHotelSearch(TestCases):
                                             datetime.datetime.strftime(tomorrow, "%Y-%m-%d"),
                                             datetime.datetime.strftime(nextDay, "%Y-%m-%d"),
                                             "2", "3, 4")
-        self.assertEqual(code, 200) 
+        self.assertEqual(code, 200)
 
     def test_hotels_info(self):
         code, json = self.client.hotel_info(15490)
