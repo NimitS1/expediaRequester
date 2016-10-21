@@ -4,8 +4,8 @@ The goal is to write a developer friendly client that can used to interact with 
 
 ###Current to-do
 - [X] Create a setup.py file
-- [ ] Complete the API implementation  
-- [ ] Populate test cases  
+- [X] Complete the API implementation  
+- [X] Populate test cases  
 - [ ] Integrate with travis CI  
 
 ###Current State of APIs
@@ -16,12 +16,12 @@ The goal is to write a developer friendly client that can used to interact with 
 | Cruise                     |   [X]       |   [ ]           |
 | Flight Search              |   [X]       |   [X]           |
 | Flights prices and trends  |   [X]       |   [X]           |
-| Geography                  |   [ ]       |   [ ]           |
+| Geography                  |   [X]       |   [X]           |
 | Hotel Reviews              |   [X]       |   [X]           |
-| Hotel Search Offers        |   [ ]       |   [ ]           |
+| Hotel Search Offers        |   [X]       |   [X]           |
 | Package Search             |   [X]       |   [X]           |
 | Suggestions and Resolutions|   [X]       |   [X]           |
-| Things To Do!              |   [ ]       |   [ ]           |
+| Things To Do!              |   [X]       |   [X]           |
 
 The cruise APIs by Expedia are currently down and cannot be tested till they are back up.  
 The package search API seems to be buggy so the test for it's wrapper is commented.  

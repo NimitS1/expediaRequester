@@ -90,6 +90,31 @@ class testPackages(TestCases):
                                           178294, None, 2, "5", False, 10, "coach", False)
         self.assertEqual(code, 200)
 
+class testHotelSearch(TestCases):
+    """
+    Unit test hotels search
+    """
+    def test_hotels_search(self):
+        tomorrow = datetime.datetime.today() + datetime.timedelta(days=1)
+        nextDay = tomorrow + datetime.timedelta(days=1)
+        code, json = self.client.hotel_search("SFO", None, None, None, False, "Inn", "0, 5, 1", None, False, 100, "mobileweb", datetime.datetime.strftime(tomorrow, "%Y-%m-%d"), 
+                                  datetime.datetime.strftime(nextDay, "%Y-%m-%d"), "2", "2")
+        self.assertEqual(code, 200)
+
+
+    def test_hotels_offers(self):
+        tomorrow = datetime.datetime.today() + datetime.timedelta(days=1)
+        nextDay = tomorrow + datetime.timedelta(days=1)
+        code, json = self.client.hotel_offers(15490, "TOTAL_PRICE", "mobileweb",
+                                            datetime.datetime.strftime(tomorrow, "%Y-%m-%d"),
+                                            datetime.datetime.strftime(nextDay, "%Y-%m-%d"),
+                                            "2", "3, 4")
+        self.assertEqual(code, 200) 
+
+    def test_hotels_info(self):
+        code, json = self.client.hotel_info(15490)
+        self.assertEqual(code, 200)
+
 if __name__ == '__main__':
     unittest.main()
     

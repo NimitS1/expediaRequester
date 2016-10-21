@@ -19,19 +19,19 @@ class ExpediaRequester(object):
     """
     Start activities API
     """
-
     def activities(self, cityName = None, startDate = None, endDate = None):
         payload = {}
-        url = "http://terminal2.expedia.com/x/activities/search"
+        url = self.base_url + "activities/search"
+        #url = "http://terminal2.expedia.com/x/activities/search"
         payload['location'] = cityName
         payload['startDate'] = startDate
         payload['endDate'] = endDate
         payload['apikey'] = self.apikey
         return self.get(url, parameter = payload)
   
-    def activity_details(self, activityId = None, startDate = None, endDate = None):
+    def details(self, activityId = None, startDate = None, endDate = None):
         payload = {}
-        url = "http://terminal2.expedia.com:80/x/activities/details"
+        url = self.base_url + "activities/details"
         payload['activityId'] = str(activityId)
         payload['startDate'] = startDate
         payload['endDate'] = endDate
@@ -191,11 +191,31 @@ class ExpediaRequester(object):
     def geography_features_by_latlong(self, within = None, lat = None, lng = None, atLeast = None, expandby = None, type_val = None, verbose = None, lcid = None):
         payload = {}
         url = "http://terminal2.expedia.com:80/x/geo/features?"
-        url += within
+        payload['within'] = within
         payload['lat'] = lat
         payload['lng'] = lng
         payload['atLeast'] = str(atLeast)
         payload['expandBy'] = expandBy
+        payload['type'] = type_val
+        payload['verbose'] = verbose
+        payload['lcid'] = lcid
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
+
+    def geography_features_by_polygon(self, within = None, type_val = None, verbose = None, lcid = None):
+        payload = {}
+        url = "http://terminal2.expedia.com:80/x/geo/features?"
+        payload['within'] = within
+        payload['type'] = type_val
+        payload['verbose'] = verbose
+        payload['lcid'] = lcid
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
+
+    def geography_features_by_bbox(self, bbox = None, type_val = None, verbose = None, lcid = None):
+        payload = {}
+        url = "http://terminal2.expedia.com:80/x/geo/features?"
+        payload['bbox'] = within
         payload['type'] = type_val
         payload['verbose'] = verbose
         payload['lcid'] = lcid
@@ -208,7 +228,7 @@ class ExpediaRequester(object):
     """
     Start Package Search API
     """
-    def packages(self, originalAirport = None, destinationAirport = None, departureDate = None, returnDate = None, regionid = None, hotelids = None, adults = None, childages = None, infantinseat = None, limit = None, cabinClass = None, nonstop = None):
+    def packages(self, originAirport = None, destinationAirport = None, departureDate = None, returnDate = None, regionid = None, hotelids = None, adults = None, childages = None, infantinseat = None, limit = None, cabinClass = None, nonstop = None):
         payload = {}
         url = self.base_url + "packages"
         payload['originAirport'] = originAirport
@@ -234,7 +254,7 @@ class ExpediaRequester(object):
     """
 
     def suggestions(self, api = None, query = None, maxresults = None):
-        header = {'Authorization' : self.apiKey }
+        header = {'Authorization' : self.apikey }
 
         payload = {}
         url = "http://terminal2.expedia.com/x/suggestions/" + api
@@ -260,4 +280,53 @@ class ExpediaRequester(object):
 
     """
     End suggestions and resolutions API
+    """
+    """
+    Start hotel search API
+    """
+
+    def hotel_search(self, city = None, regionid = None, latitude = None, longitude = None, filterunavailable = None, filterhotelname = None, filterstarratings = None, filteramenities = None, sortorder = None, resultsperpage = None, sourcetype = None, checkindate = None, checkoutdate = None, room1 = None, room = None):
+        payload = {}
+        url = self.base_url + "mhotels/search"
+        payload['city'] = city
+        payload['regionId'] = regionid
+        payload['latitude'] = latitude
+        payload['longitude'] = longitude
+        payload['filterUnavailable'] = str(filterunavailable).lower()
+        payload['filterHotelName'] = filterhotelname
+        payload['filterStarRatings'] = filterstarratings
+        payload['filterAmenities'] = filteramenities
+        payload['sortOrder'] = str(sortorder).lower()
+        payload['resultsPerPage'] = str(resultsperpage)
+        payload['sourceType'] = sourcetype
+        payload['checkInDate'] = checkindate
+        payload['checkOutDate'] = checkoutdate
+        payload['room1'] = room1
+        payload['room'] = room
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
+
+    def hotel_offers(self, hotelid = None, pricetype = None, sourcetype = None, checkindate = None, checkoutdate = None, room1 = None, room = None):
+        payload = {}
+        url = self.base_url + "mhotels/offers"
+        payload['hotelId'] = str(hotelid)
+        payload['priceType'] = pricetype
+        payload['sourceType'] = sourcetype
+        payload['checkInDate'] = checkindate
+        payload['checkOutDate'] = checkoutdate
+        payload['room1'] = room1
+        payload['room'] = room
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
+        
+
+    def hotel_info(self, hotelid = None):
+        payload = {}
+        url = self.base_url + "mhotels/info"
+        payload['hotelId'] = str(hotelid)
+        payload['apikey'] = self.apikey
+        return self.get(url, parameter = payload)
+
+    """
+    End Hotel search API
     """
