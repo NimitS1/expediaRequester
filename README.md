@@ -2,12 +2,6 @@
 A python wrapper for [Expedia APIs](http://developer.expedia.com/directory)
 The goal is to write a developer friendly client that can used to interact with the Expedia API. Once the wrapper is ready, I will publish it as a package in the [Python package index](https://pypi.python.org/pypi)
 
-[![Build Status](https://travis-ci.org/NimitS1/expediaRequester.svg?branch=master)](https://travis-ci.org/NimitS1/expediaRequester)
-<a href="https://scan.coverity.com/projects/nimits1-expediarequester">
-  <img alt="Coverity Scan Build Status"
-       src="https://scan.coverity.com/projects/10595/badge.svg"/>
-</a>
-
 ###Current to-do
 - [X] Create a setup.py file
 - [X] Complete the API implementation  
