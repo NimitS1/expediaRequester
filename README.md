@@ -6,7 +6,7 @@ The goal is to write a developer friendly client that can used to interact with 
 - [X] Create a setup.py file
 - [X] Complete the API implementation  
 - [X] Populate test cases  
-- [ ] Integrate with travis CI  
+- [X] Integrate with travis CI  
 
 ###Current State of APIs
 
