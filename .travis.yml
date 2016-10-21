@@ -3,6 +3,25 @@ language: python
 python:
  - "2.7"
 
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "pMOadNj3bqbJAgaL3zZjgWpMsLR3+36z4LBv/QYgPUrQ7fAWr7xMqGKvzPYUk0KMupENF5LgS7q3o06j13PVZv2fGqpWJL2yQ0xdv4gQiw1d4CKkHcRc8jN1UDwc0krOMwEO77FzemtnJpRSA6Rey2owyEL7fOSjJ6DCR+V9953uDBWtnNYuEMbNADW5D84RNLWgKbxKt6Ezl9GOhDiXOBQstThrUk9cQ3NnodYFNoT+4lOpjP4sfnRcFRmUKHeWA7WuPbOTY4lxXp0PnbrHcts1frRtRzO7KnU+xij21SDLlOXRRs4bA9pVNZf7oy1iXjxnYmoFFDrGdx+ecq3fg0LzCoqr5Ug2jZTaAkolSVAgH7J1qttNBDDjj5NKD9dAgFKqeXV1lkMosWvtjvdxGj6FmfTDFzVP4tGkftfPGg9vda9CsUwLeGuOqDQ5kwnIwXxWvPU0c6wouWj+HNq0mLJCP8Iby6T7gJ27vYq9CPjsBTZNxsWL+Jnn6RSLMFOH+TMVhD5XapHx/zOo3lYC+ey6DM6XOkInRAJGlONb94PbJrq+7E1y7TgGIFlunc8faV7LD2IF+6Ejy96DGj00g5M47EXJYLqBdMs+GYPG3soFkePONLrezc1VssTdCwN+vrFHTu0uRj8xW4V09NkL919qLxbFGKXYpA1F4/LHC1Q="
+
+before_install:
+      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
 install: true
 
 script: true
+
+addons:
+  coverity_scan:
+    project:
+      name: "NimitS1/expediaRequester"
+      description: "Build submitted via Travis CI"
+    notification_email: nimit.svnit@gmail.com
+    build_command_prepend: ""
+    build_command:   ""
+    branch_pattern: coverity_scan
