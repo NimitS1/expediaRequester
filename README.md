@@ -26,5 +26,10 @@ The goal is to write a developer friendly client that can used to interact with 
 | Things To Do!              |   [X]       |   [X]           |
 
 The cruise APIs by Expedia are currently down and cannot be tested till they are back up.  
-The package search API seems to be buggy so the test for it's wrapper is commented.  
-The search resolutions API seems to look for particular headers which I am not able deduce.  
+
+###Testing
+You first need to get an API key from [Expedia](http://developer.expedia.com/).  
+Running the test cases is very simple:
+```
+python test_suite.py
+```
